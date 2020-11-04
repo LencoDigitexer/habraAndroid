@@ -10,13 +10,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val webView = findViewById<WebView>(R.id.webview)
-        webView.settings.javaScriptEnabled = true
+        val mWebView = findViewById<WebView>(R.id.webview)
+        mWebView.settings.javaScriptEnabled = true
         //webView.settings.javaScriptCanOpenWindowsAutomatically = true
-        webView.setWebViewClient(WebViewClient())
-        webView.settings.domStorageEnabled = true
+        mWebView.setWebViewClient(WebViewClient())
+        mWebView.settings.domStorageEnabled = true
+        mWebView.settings.allowFileAccessFromFileURLs = true
 
-        
-        webView.loadUrl("https://habra.js.org/")
+        mWebView.loadUrl("https://habra.js.org/")
+    }
+    override fun onBackPressed() {
+        val mWebView = findViewById<WebView>(R.id.webview)
+        if (mWebView.canGoBack()) {
+            mWebView.goBack()
+        } else {
+            super.onBackPressed()
+        }
     }
 }
